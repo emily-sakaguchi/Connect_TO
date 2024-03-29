@@ -1,12 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset='utf-8' />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>ConnectTO</title>
-    <!-- maplibre API -->
-    <link rel='stylesheet' href='https://unpkg.com/maplibre-gl@4.1.1/dist/maplibre-gl.css' />
-    <script src='https://unpkg.com/maplibre-gl@4.1.1/dist/maplibre-gl.js'></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://unpkg.com/maplibre-gl/dist/maplibre-gl.js"></script>
+    <link href="https://unpkg.com/maplibre-gl/dist/maplibre-gl.css" rel="stylesheet" />
+    <style>
+        body { margin:0; padding:0; }
+        #map { position:absolute; top:6.5%; bottom:0; width:100%; }
+    </style>
     <!-- Turf.js API -->
     <script src='https://unpkg.com/@turf/turf@6/turf.min.js'></script>
     <!-- Bootstrap -->
@@ -15,6 +19,45 @@
 
 </head>
 <body>
+      <!-- Navbar -->
+      <nav class="navbar navbar-expand-lg navbar-dark bg-dark"><!--theme set to dark-->
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#">CafeTO Access Tracker</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <!--nav-link set to active to show this is the current page selection in the navbar-->
+                <a class="nav-link active" aria-current="page" href="#">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="About.html">About</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href ="form.html">Share your ideas</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href ="News.html">News</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+
+        <!-- MAP CONTAINER -->
+    <div id='map' class='map'></div>
+
+    <!-- MAP OVERLAY (FOR INTERACTIVE FEATURES) -->
+    <div class='map-overlay-data'> <!-- this div class creates an overlay/background to place features on top of -->
+      <!-- this div class makes the filter menu collapsible -->
+      <button type="button" class="collapsible">Filter map view</button> 
+      <div class="content">
+
+
+ <!-- JAVASCRIPT -->
+    <script src="script.js"></script>
     
 </body>
 </html>
