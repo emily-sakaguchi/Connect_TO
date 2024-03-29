@@ -7,10 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://unpkg.com/maplibre-gl/dist/maplibre-gl.js"></script>
     <link href="https://unpkg.com/maplibre-gl/dist/maplibre-gl.css" rel="stylesheet" />
-    <style>
-        body { margin:0; padding:0; }
-        #map { position:absolute; top:6.5%; bottom:0; width:100%; }
-    </style>
+    <!-- CSS-->
+    <link rel="stylesheet" href="style.css">
     <!-- Turf.js API -->
     <script src='https://unpkg.com/@turf/turf@6/turf.min.js'></script>
     <!-- Bootstrap -->
@@ -22,7 +20,7 @@
       <!-- Navbar -->
       <nav class="navbar navbar-expand-lg navbar-dark bg-dark"><!--theme set to dark-->
         <div class="container-fluid">
-          <a class="navbar-brand" href="#">CafeTO Access Tracker</a>
+          <a class="navbar-brand" href="#">Connected Communities TO</a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
@@ -46,14 +44,65 @@
         </div>
       </nav>
 
-        <!-- MAP CONTAINER -->
-    <div id='map' class='map'></div>
+
+	<!-- <div class="top-image">
+		<img src="https://images.unsplash.com/photo-1521106047354-5a5b85e819ee?q=80&w=1473&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" 
+    alt="Wi-Fi Cables">
+	</div> -->
+	
+	<!-- <div class="text">
+
+		<div class="title">
+			<h1>ConnectTO: Mapping possibilities for the City of Toronto's Free Wi-Fi Pilot Project</h1>
+			<p>Emily Sakaguchi</p>
+		</div>
+
+		<p>
+			Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+		</p>
+
+		<p>
+			At vero eos et accusamus et iusto odio dignissimos ducimus, qui blanditiis praesentium voluptatum deleniti atque corrupti, quos dolores et quas molestias excepturi sint, obcaecati cupiditate non provident, similique sunt in culpa, qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem reru[d]um facilis est e[r]t expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio, cumque nihil impedit, quo minus id, quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellend[a]us. Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet, ut et voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat.
+		</p>
+
+		<h3>Pilot Program Site Evluation Tool</h3>
+		
+		<p>
+			Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet, ut et voluptates repudiandae sint et molestiae non recusandae. 
+		</p>
+		
+	</div> -->
+      
+  <!-- MAP CONTAINER -->
+  <div id='map' class='map'></div>
 
     <!-- MAP OVERLAY (FOR INTERACTIVE FEATURES) -->
     <div class='map-overlay-data'> <!-- this div class creates an overlay/background to place features on top of -->
       <!-- this div class makes the filter menu collapsible -->
       <button type="button" class="collapsible">Filter map view</button> 
       <div class="content">
+
+  <!-- FILTER FEATURES (INTERACTIVE CHECKBOXES) -->
+  <div class="form-check"> <!-- When checked, it makes the average income legend visible -->
+    <input class="form-check-input" type="checkbox" value="" id="parksCheck" checked> <!-- Checked by default -->
+    <label class="form-check-label" for="flexCheckDefault"> 
+      Parks and recreation facilities
+    </label>
+  </div>
+
+  <div class="form-check"> <!-- When checked, it makes the average income legend visible -->
+    <input class="form-check-input" type="checkbox" value="" id="ttcShelterCheck" checked> <!-- Checked by default -->
+    <label class="form-check-label" for="flexCheckDefault"> 
+      TTC transit shelters
+    </label>
+  </div>
+
+  <div class="form-check"> <!-- When checked, it makes the average income legend visible -->
+    <input class="form-check-input" type="checkbox" value="" id="wayfinderCheck" checked> <!-- Checked by default -->
+    <label class="form-check-label" for="flexCheckDefault"> 
+      Wayfinding structures
+    </label>
+  </div>
 
 
  <!-- JAVASCRIPT -->

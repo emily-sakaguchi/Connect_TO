@@ -1,0 +1,122 @@
+
+/*map page styling*/
+
+/* .top-image {
+    position: relative;
+    height:10px;
+} */
+.map { /*formats the position of the map relative to the web page*/
+    position: absolute; 
+    top: 0;
+    bottom: 0;
+    left: 10%;
+    right: 0;
+    width: 80%; /*this makes the map take up the full screen*/
+    height: 70%;  
+    margin-top: 10%; /* the margin leaves space for the navbar  */
+}
+
+.map-overlay-search { /*formats the overlay boxes on top of the map to provide a white background for text and interactive features*/
+    position: relative;
+    font: 14px 'Helvetica Neue', Arial, Helvetica, sans-serif;
+    background: rgba(255, 255, 255, 0.8);
+    top: 0;
+    left: 0;
+    width: 260px;
+    margin: 10px 10px 10px;
+    padding: 10px; /*around elements inside the overlay*/
+    overflow: visible
+}
+
+.geocoder { /*formats the geocoder (search for location)*/
+    position: relative;
+    margin: 10px 0px 10px; /*adds padding so that it does not look cramped*/
+}
+
+#returnbutton {
+    position: relative;
+    margin: 10px 0 10px; /*adds padding so that it does not look cramped*/
+    width: 100%; /*sets button width to the width of the block underneath it*/
+}
+
+.map-overlay-data {
+    position: relative;
+    font: 14px 'Helvetica Neue', Arial, Helvetica, sans-serif;
+    background: rgba(255, 255, 255, 0.8); /*makes the background white*/
+    width: 260px;
+    left: 10px;
+    margin-top: 10px;
+    padding: 10px; /*adds padding so that it does not look cramped*/
+    overflow: visible;
+}
+
+/* This styles the collapse button itself*/
+
+.collapsible {
+    background-color: #eee;
+    color: #444;
+    cursor: pointer;
+    padding: 10px;
+    width: 100%;
+    border: none;
+    text-align: left;
+    outline: none;
+    font-size: 14px;  
+}
+  
+/* The background colour highlights the button  when users mouse over it */
+
+.collapsible:hover {
+    background-color: #ccc; 
+}
+  
+/* This styles the collapse button content*/
+.content {
+    display: none;   /* The menu is hidden by default */
+    overflow: hidden;
+    background-color: #f1f1f1;
+}
+
+.collapsible:after {
+    content: '\02795'; /* Unicode character for the plus sign */
+    font-size: 14px;
+    color: white;
+    float: right;
+    margin-left: 5px;
+}
+  
+.active-collapse:after {
+    content: "\2796"; /* Unicode character for the minus sign */
+ }
+
+/*formatting of legend background block (see further down for legend content formatting)*/
+.legend {
+    position: absolute;
+    display: none;
+    background-color: #fff;
+    border-radius: 0.1vw; /* Switch to vw here so that eventually a full switch to vw can be made*/
+    bottom: 0;
+    margin-bottom: 2vw;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1); /*horizontal shadow, vertical shadow, size of shadow, color*/
+    font: 1vw 'Helvetica Neue', Arial, Helvetica, sans-serif;
+    padding: 1vw;
+    right: 1vw;
+    z-index: 1;  /* Specifies stack order of elements */
+} 
+
+/* Styling of legend icons */
+.legend div span {
+    display: inline-block;
+    border-radius: 50%; /*curve border to make a circle*/
+    height: 0.6vw; /*size of circle*/
+    width: 0.6vw;
+    margin-right: 0.5vw; /*position of circle*/
+}
+
+h1 {
+    font-size: 1vw;
+}
+
+.form { 
+    padding: 5px; /*creates spacing to prevent looking cramped*/
+}
