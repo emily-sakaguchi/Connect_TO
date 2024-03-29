@@ -14,6 +14,7 @@ const map = new maplibregl.Map({
         [-180, 30], // Southwest
         [-25, 84]  // Northeast
     ],
+    bearing: -17, // bearing in degrees
 });
 
 map.addControl(new maplibregl.NavigationControl());
@@ -255,4 +256,17 @@ document.getElementById('wayfinderCheck').addEventListener('change', (e) => {
     );
 });
 
+/*--------------------------------------------------------------------
+RETURN BUTTON
+- returns map to original extent
+--------------------------------------------------------------------*/
 
+//Event listener to return map view to full screen on button click
+document.getElementById('returnbutton').addEventListener('click', () => {
+    map.flyTo({
+        center: [-79.371, 43.720],
+        zoom: 10,
+        essential: true,
+        bearing: -17, // bearing in degrees
+    });
+});
