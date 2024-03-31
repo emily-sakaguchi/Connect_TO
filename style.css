@@ -1,6 +1,13 @@
 
 /*map page styling*/
 
+
+.maplibregl-popup-anchor-bottom-right .maplibregl-popup-tip {
+    display:none
+    }
+    
+
+
 .intro {
     position: relative;
     width: 80%;

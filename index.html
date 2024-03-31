@@ -78,6 +78,13 @@
         </div>
 
         <div class="form-check"> <!-- When checked, it makes the average income legend visible -->
+          <input class="form-check-input" type="checkbox" value="" id="neighbCheck" checked> <!-- Checked by default -->
+          <label class="form-check-label" for="flexCheckDefault"> 
+            Neighbourhoods
+          </label>
+        </div>
+
+        <div class="form-check"> <!-- When checked, it makes the average income legend visible -->
           <input class="form-check-input" type="checkbox" value="" id="legendCheck" checked> <!-- Checked by default -->
           <label class="form-check-label" for="flexCheckDefault"> 
             Legend
@@ -93,7 +100,7 @@
     <!-- Suitability Legend -->
     <div id='suitabilityLegend' class='legend'>
       <h3>Suitability Score</h3> 
-      <h4>Where 10 is most suitable<br> and 1 is least suitable.</h4>
+      <h4>Where 10 is most suitable and 1 is least suitable.</h4>
       <div class = row>
         <div class = col><span style='background-color: #a50126'></span>1</div>
         <div class = col><span style='background-color: #eaf6a2'></span>6</div>
@@ -116,7 +123,8 @@
         <div class = col><span style='background-color: #006837'></span>10</div>
       </div>
     </div>
-
+    
+  
 
  <!-- JAVASCRIPT -->
   <script src="script.js"></script>

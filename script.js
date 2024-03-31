@@ -36,6 +36,7 @@ let parks;
 let ttcShelter;
 let suitability;
 let wayfinder;
+let neighb;
 
 // Fetch GeoJSON from github URL, convert response to JSON, and store response as variable 
 fetch('https://raw.githubusercontent.com/emily-sakaguchi/ConnectTO_v1/main/data/parks_rec.geojson')
@@ -66,25 +67,36 @@ fetch('https://raw.githubusercontent.com/emily-sakaguchi/ConnectTO_v1/main/data/
         suitability = response;       
     });
 
+    fetch('https://raw.githubusercontent.com/emily-sakaguchi/ConnectTO_v1/main/data/Neighbourhoods.geojson')
+    .then(response => response.json())      // Store response as JSON format
+    .then(response => {
+        console.log(response);      // Check response in console
+        neighb = response;       
+    });
+
 
 
 // Adding layers to map
-    map.on('load', () => {
+map.on('load', () => {
     map.addSource('parks',{
         type: 'geojson',
         data: 'https://raw.githubusercontent.com/emily-sakaguchi/ConnectTO_v1/main/data/parks_rec.geojson'
     });
 
-    // // see if need to filter
+    // not filtered because data was cleaned manually to remove parks, community centres, and arenas with Wi-Fi
     map.addLayer({
         'id': 'parks',
         'type': 'circle',
         'source': 'parks',
         'paint': {
-            'circle-radius': 1.5,
-            'circle-color': '#B42222' // red
+            'circle-radius':['interpolate', ['linear'], ['zoom'], 9, 1, 10.3, 2, 12, 3.5, 15, 4.5],
+            'circle-color': '#01470a', // green
+            'circle-stroke-color': 'white',
+            'circle-stroke-width': 1
         }
     });
+
+    
 
     map.addSource('ttcShelter',{
         type: 'geojson',
@@ -96,9 +108,12 @@ fetch('https://raw.githubusercontent.com/emily-sakaguchi/ConnectTO_v1/main/data/
         'id': 'ttcShelter',
         'type': 'circle',
         'source': 'ttcShelter',
+        'filter': ['==',['get',"STATUS"], "Existing"],
         'paint': {
-            'circle-radius': 1.5,
-            'circle-color': 'yellow' 
+            'circle-radius':['interpolate', ['linear'], ['zoom'], 9, 1, 10.3, 2, 12, 3.5, 15, 4.5],
+            'circle-color': '#ed2f2f', //red 
+            'circle-stroke-color': 'white',
+            'circle-stroke-width': 1
         }
     });
 
@@ -112,13 +127,31 @@ fetch('https://raw.githubusercontent.com/emily-sakaguchi/ConnectTO_v1/main/data/
         'id': 'wayfinder',
         'type': 'circle',
         'source': 'wayfinder',
+        'filter': ['==',['get',"STATUS"], "Existing"],
         'paint': {
-            'circle-radius': 1.5,
-            'circle-color': 'blue' 
+            'circle-radius':['interpolate', ['linear'], ['zoom'], 9, 1, 10.3, 2, 12, 3.5, 15, 4.5],
+            'circle-color': '#066ad4', //blue
+            'circle-stroke-color': 'white',
+            'circle-stroke-width': 1
         }
     });
 
+    map.addSource('neighb',{
+        type: 'geojson',
+        data: 'https://raw.githubusercontent.com/emily-sakaguchi/ConnectTO_v1/main/data/Neighbourhoods.geojson'
+    });
 
+// see if need to filter
+    map.addLayer({
+        'id': 'neighb',
+        'type': 'fill',
+        'source': 'neighb',
+        'paint': {
+            'fill-color':'transparent',
+            'fill-opacity': 0.8,
+            'fill-outline-color': 'black'
+        }
+    });
 
     map.addSource('suitability', {
         type:'geojson',
@@ -174,7 +207,18 @@ fetch('https://raw.githubusercontent.com/emily-sakaguchi/ConnectTO_v1/main/data/
                 },
                 'filter': ['==', ['get', 'fid'], ''] //Initial filter (returns nothing)
             }, 'parks','ttcShelter','wayfinder');
-})
+         
+    /*--------------------------------------------------------------------
+    Turf.js
+    --------------------------------------------------------------------*/
+    var parksWithin = turf.pointsWithinPolygon(parks, suitability);
+    console.log(parksWithin)
+    var ttcWithin = turf.pointsWithinPolygon(parks, suitability);
+    console.log(ttcWithin)
+    var wayfindWithin = turf.pointsWithinPolygon(parks, suitability);
+    console.log(wayfindWithin)
+
+}) //end of map load event
 
 /*--------------------------------------------------------------------
 HOVER EVENT    
@@ -197,6 +241,7 @@ POP-UP ON CLICK EVENT
 - When the cursor moves over the map, it changes from the default hand to a pointer
 - When the cursor clicks on a feature, the name and classification will appear in a pop-up
 --------------------------------------------------------------------*/
+
 //Neighbourhoods pop-up
 map.on('mouseenter', 'suitability', () => {
     map.getCanvas().style.cursor = 'pointer'; //Switches cursor to pointer when mouse is over the neighbourhood-fill layer
@@ -210,9 +255,21 @@ map.on('click', 'suitability', (e) => {
     new maplibregl.Popup() //Declares a new popup on each click
         .setLngLat(e.lngLat) //Coordinates of the mouse click to determine the coordinates of the pop-up
         //Text for the pop-up:
-        .setHTML("<b>Suitability score:</b> " + e.features[0].properties.V + "<br>")
+        .setHTML("<b>Suitability score:</b> " + e.features[0].properties.V)
         .addTo(map); //Adds the popup to the map
 });
+
+map.on('click', 'neighb', (e) => {
+    new maplibregl.Popup() //Declares a new popup on each click
+        .setLngLat([-79.020, 43.691]) //Coordinates of the mouse click to determine the coordinates of the pop-up
+        //Text for the pop-up:
+        .setHTML("<b>Neighbourhood Name:</b> " + e.features[0].properties.AREA_NAME + "<br>" +// shows neighbourhood name
+            "<b>Improvment Status:</b> " + e.features[0].properties.CLASSIFICATION
+            //shows neighbourhood improvement status
+            )
+        .addTo(map); //Adds the popup to the map
+});
+
 
 
 /*--------------------------------------------------------------------
@@ -265,6 +322,15 @@ document.getElementById('wayfinderCheck').addEventListener('change', (e) => {
     );
 });
 
+// Neighbourhood layer
+document.getElementById('neighbCheck').addEventListener('change', (e) => {
+    map.setLayoutProperty(
+        'neighb',
+        'visibility',
+        e.target.checked ? 'visible' : 'none'
+    );
+});
+
 // Suitability legend
 let legendCheck = document.getElementById('legendCheck');
 
@@ -295,24 +361,3 @@ document.getElementById('returnbutton').addEventListener('click', () => {
     });
 });
 
-/*--------------------------------------------------------------------
-Turf.js
---------------------------------------------------------------------*/
-
-// var tagged = turf.tag(parks, suitability, 'ASSET_NAME','fid');
-// console.log(tagged)
-
-// var aggregatePoints = turf.collect(suitability, parks, 'ASSET_NAME','fid');
-// var parkNames = collected.features[0].properties.values
-// console.log(parkNames) //Viewing the collect output in the console
-
-// let maxcollis = 0; //a variable to store the maximum count of collisions in a given cell
-
-//below is a conditional statment to find the maximu collision count in any given hexagon
-// collishex.features.forEach((feature) => {
-//     feature.properties.COUNT = feature.properties.values.length
-//     if (feature.properties.COUNT > maxcollis) { //this line tests if the count in a hexagon exceeds the maximum count found up to that point
-//         console.log(feature); //Allows me to view the process of determining the macimum count in the console
-//         maxcollis = feature.properties.COUNT//if the collision count is higher, this value becomes the new maximum stored in maxcollis
-//     }
-// })
