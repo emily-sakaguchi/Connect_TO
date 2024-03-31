@@ -8,8 +8,8 @@ JavaScript
 const map = new maplibregl.Map({
     container: 'map',
     style: 'https://api.maptiler.com/maps/openstreetmap/style.json?key=vYYUHMMF2krizlVhi9JA', // style URL
-    center: [-79.371, 43.720], //these cooraintes load Toronto at the centre of the map
-    zoom: 10, //this zooms to show all of Toronto, so users can explore by zooming in to areas of interest
+    center: [-79.355, 43.715], //these cooraintes load Toronto at the centre of the map
+    zoom: 10.3, //this zooms to show all of Toronto, so users can explore by zooming in to areas of interest
     maxBounds: [
         [-180, 30], // Southwest
         [-25, 84]  // Northeast
@@ -17,7 +17,16 @@ const map = new maplibregl.Map({
     bearing: -17, // bearing in degrees
 });
 
+var mq = window.matchMedia( "(min-width: 420px)" );
+
+if (mq.matches){
+    map.setZoom(10.3); //set map zoom level for desktop size
+} else {
+    map.setZoom(8.5); //set map zoom level for mobile size
+};
+
 map.addControl(new maplibregl.NavigationControl());
+
 
 /*--------------------------------------------------------------------
 DATA
@@ -33,28 +42,28 @@ fetch('https://raw.githubusercontent.com/emily-sakaguchi/ConnectTO_v1/main/data/
     .then(response => response.json())      // Store response as JSON format
     .then(response => {
         console.log(response);      // Check response in console
-        parks = response;       // Store GeoJSON as "substns" variable
+        parks = response;       
     });
 
 fetch('https://raw.githubusercontent.com/emily-sakaguchi/ConnectTO_v1/main/data/Transit_shelter.geojson')
     .then(response => response.json())      // Store response as JSON format
     .then(response => {
         console.log(response);      // Check response in console
-        ttcShelter = response;       // Store GeoJSON as "substns" variable
+        ttcShelter = response;       
     });
 
 fetch('https://raw.githubusercontent.com/emily-sakaguchi/ConnectTO_v1/main/data/wayfinder.geojson')
     .then(response => response.json())      // Store response as JSON format
     .then(response => {
         console.log(response);      // Check response in console
-        wayfinder = response;       // Store GeoJSON as "substns" variable
+        wayfinder = response;       
     });
 
 fetch('https://raw.githubusercontent.com/emily-sakaguchi/ConnectTO_v1/main/data/WifiOverlayVector.geojson')
     .then(response => response.json())      // Store response as JSON format
     .then(response => {
         console.log(response);      // Check response in console
-        suitability = response;       // Store GeoJSON as "substns" variable
+        suitability = response;       
     });
 
 
@@ -256,6 +265,21 @@ document.getElementById('wayfinderCheck').addEventListener('change', (e) => {
     );
 });
 
+// Suitability legend
+let legendCheck = document.getElementById('legendCheck');
+
+legendCheck.addEventListener('click', () => {
+    if (legendCheck.checked) {
+        legendCheck.checked = true; //when checked (true), the legend block is visible
+        suitabilityLegend.style.display = 'block';
+    }
+    else {
+        suitabilityLegend.style.display = "none"; 
+        legendCheck.checked = false; //when unchecked (false), the legend block is not displayed
+    }
+});
+
+
 /*--------------------------------------------------------------------
 RETURN BUTTON
 - returns map to original extent
@@ -264,9 +288,31 @@ RETURN BUTTON
 //Event listener to return map view to full screen on button click
 document.getElementById('returnbutton').addEventListener('click', () => {
     map.flyTo({
-        center: [-79.371, 43.720],
-        zoom: 10,
+        center: [-79.355, 43.715],
+        zoom: 10.3,
         essential: true,
         bearing: -17, // bearing in degrees
     });
 });
+
+/*--------------------------------------------------------------------
+Turf.js
+--------------------------------------------------------------------*/
+
+// var tagged = turf.tag(parks, suitability, 'ASSET_NAME','fid');
+// console.log(tagged)
+
+// var aggregatePoints = turf.collect(suitability, parks, 'ASSET_NAME','fid');
+// var parkNames = collected.features[0].properties.values
+// console.log(parkNames) //Viewing the collect output in the console
+
+// let maxcollis = 0; //a variable to store the maximum count of collisions in a given cell
+
+//below is a conditional statment to find the maximu collision count in any given hexagon
+// collishex.features.forEach((feature) => {
+//     feature.properties.COUNT = feature.properties.values.length
+//     if (feature.properties.COUNT > maxcollis) { //this line tests if the count in a hexagon exceeds the maximum count found up to that point
+//         console.log(feature); //Allows me to view the process of determining the macimum count in the console
+//         maxcollis = feature.properties.COUNT//if the collision count is higher, this value becomes the new maximum stored in maxcollis
+//     }
+// })
