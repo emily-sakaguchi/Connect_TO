@@ -279,27 +279,13 @@ map.on('click', 'neighb', (e) => {
 let selected = 0;
 
 map.on('click', 'suitability', (e) => {   
-    selected = e.features[0].properties.S_Id;   
-    console.log(selected); 
-    filteredParks = (Object.values(parks).filter(park => {return park.S_Id === selected}));
-    // console.log(filteredParks);  
-  
+    selected = e.features[0].properties;
+    filteredParks = (parks.features.filter((park) => 
+        park.properties.S_Id === selected.S_Id
+    ));
 
-    // const parksFiltered = (Object.values(parks)).filter((el) => {
-    //     return (Object.values(selected)).some((f) => {
-    //       return f.S_Id === el.S_Id;
-    //     });
-    //   });
-    //   console.log(parksFiltered)
-    });
-
-
-    // for (let i = 0; i < parks.length; i++) {
-    //         if (parks.features.properties.S_Id === selected) {    
-    //             filteredParks = [...filteredParks, parks[i]];    
-    //         }    
-    //         console.log(filteredParks); 
-    //     }  
+    console.log(filteredParks)
+});
 
 
 /*--------------------------------------------------------------------
