@@ -210,15 +210,51 @@ map.on('load', () => {
          
     /*--------------------------------------------------------------------
     Turf.js
+    - return list of eligible sites
     --------------------------------------------------------------------*/
-    var parksWithin = turf.pointsWithinPolygon(parks, suitability);
-    console.log(parksWithin)
-    var ttcWithin = turf.pointsWithinPolygon(parks, suitability);
-    console.log(ttcWithin)
-    var wayfindWithin = turf.pointsWithinPolygon(parks, suitability);
-    console.log(wayfindWithin)
+    let parkNames;
+    // let selected;
+    
+    map.on('click', 'suitability', (e) => {
+        // selected = e.features[0].properties.fid
+        var parksWithin = turf.tag(parks, suitability, 'fid', 'ASSET_NAME');
+        console.log(parksWithin) 
+        for (let i = 0; i < parksWithin.length; i++) {
+            parkNames += parksWithin.get('ASSET_NAME')[i] + "<br>";
+          }
+          console.log(parkNames)
+    });
 
-}) //end of map load event
+   
+    // document.getElementById('results-btn').addEventListener('click', () => {
+    //     document.getElementById('searchParks').addEventListener('change', (e) => {
+    //         if (e.target.checked) {
+    //             var parksWithin = turf.pointsWithinPolygon(parks, suitability);
+    //             console.log(parksWithin);
+    //             // document.getElementById('siteList').innerHTML = parksWithin
+    //         } else {
+    //             console.log('parks are not selected')
+    //         }
+    //     });
+        // document.getElementById('searchTtc').addEventListener('change', (e) => {
+        //     if (e.target.checked) {
+        //         var ttcWithin = turf.pointsWithinPolygon(ttcShelter, suitability);
+        //         console.log(ttcWithin);
+        //         // document.getElementById('siteList').innerHTML = ttcWithin;
+        //     } else {
+        //         console.log('transit shelters are not selected')
+        //     }});
+        // document.getElementById('searchWayfind').addEventListener('change', (e) => {
+        //     if (e.target.checked) {
+        //     var wayfindWithin = turf.pointsWithinPolygon(wayfinder, suitability);
+        //     console.log(wayfindWithin);
+        //     // document.getElementById('siteList').innerHTML = wayfindWithin;
+        // } else {
+        //     console.log('wayfinders are not selected')
+        // }
+        // })
+    })
+ //end of map load event
 
 /*--------------------------------------------------------------------
 HOVER EVENT    
@@ -360,4 +396,6 @@ document.getElementById('returnbutton').addEventListener('click', () => {
         bearing: -17, // bearing in degrees
     });
 });
+
+
 
