@@ -8,11 +8,12 @@
     
 
 
-.intro {
+.info {
     position: relative;
     width: 80%;
     left: 10%;
     top: 2vw;
+    padding: 10px;
 }
 
 .h1 {

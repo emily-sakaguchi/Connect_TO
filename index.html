@@ -33,18 +33,16 @@
     alt="Wi-Fi Cables">
 	</div> -->
 
-  <div class = 'intro'>
+  <div class = 'info'>
 		<h1>ConnectTO</h1>
     <h2>Mapping possibilities for the City of Toronto's Free Wi-Fi Pilot Project</h2>
 		<p>Emily Sakaguchi</p>
 
 		<p>
-			Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-		</p>
-
-		<p>
-			At vero eos et accusamus et iusto odio dignissimos ducimus, qui blanditiis praesentium voluptatum deleniti atque corrupti, quos dolores et quas molestias excepturi sint, obcaecati cupiditate non provident, similique sunt in culpa, qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem reru[d]um facilis est e[r]t expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio, cumque nihil impedit, quo minus id, quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellend[a]us. Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet, ut et voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat.
-		</p>
+      Access to high-speed, reliable internet is becoming increasingly essential. Toronto’s digital divide disproportionately disadvantages low-income households, recent immigrants, single parents, seniors, people experiencing housing precarity, and many racialized groups. The impacts of barriers to digital connectivity can be profound, including lost job opportunities and income. The City of Toronto acknowledges the urgent need to bridge the digital divide by expanding its city-owned public Wi-Fi program in alignment with its four main pillars—digital equity, universal accessibility, security and transparency, and community safety.
+      <p>
+        The City of Toronto has been expanding its public Wi-Fi program in spaces such as community centres and community housing. As the City looks to further implement its free Wi-Fi program, interviews with community stakeholders have emphasized the need for Wi-Fi connectivity in third spaces, such as public parks. Explore potential new sites for public Wi-Fi using the map below. Click on areas to get more information on its suitability rating, neighbourhood improvement status, and third spaces eligible for public Wi-Fi.
+      </p>
 		
   </div>
 
@@ -132,22 +130,41 @@
         </label>
       </div>
       <div class="form-check"> <!-- When checked, it makes the average income legend visible -->
-        <input class="form-check-input" type="checkbox" value="" id="searchttC"> <!-- Checked by default -->
+        <input class="form-check-input" type="checkbox" value="" id="searchTtc"> <!-- Checked by default -->
         <label class="form-check-label" for="flexCheckDefault"> 
           TTC transit shelters
         </label>
       </div>
       <div class="form-check"> <!-- When checked, it makes the average income legend visible -->
-        <input class="form-check-input" type="checkbox" value="" id="searchwayfind"> <!-- Checked by default -->
+        <input class="form-check-input" type="checkbox" value="" id="searchWayfind"> <!-- Checked by default -->
         <label class="form-check-label" for="flexCheckDefault"> 
           Wayfinding Structures
         </label>
-      </div>
+      </div>  
+    </div>
+
+
         
-      <p id = 'siteList'></p>
+        
+
       
 
-    </div>
+    
+    <div class = info>
+      <table>
+          <tr class = column-header style = "text-align: left">
+            <th>Scenario</th>
+            <th class = "column-header-right">Name or ID</th>
+            <th class = "column-header-right">Location type</th>
+            <th class = "column-header-right">Neighbourhood<br>improvement status</th>
+          </tr>
+        
+    </div><h3>Methods</h3>
+      <p>
+        The suitability ratings were determined by overlaying the proportion of immigrants by census dissemination area, the prevalence of poverty by census dissemination area (LICO-AT), walking distance (i.e. network rather than euclidean) to existing public Wi-Fi locations (farther is more suitable), and walking distance to TTC stops (closer is more suitable). All input layers were weighted equally.
+
+      </p>
+      
     
   
 

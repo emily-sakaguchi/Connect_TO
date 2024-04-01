@@ -60,7 +60,7 @@ fetch('https://raw.githubusercontent.com/emily-sakaguchi/ConnectTO_v1/main/data/
         wayfinder = response;       
     });
 
-fetch('https://raw.githubusercontent.com/emily-sakaguchi/ConnectTO_v1/main/data/WifiOverlayVector.geojson')
+fetch('https://raw.githubusercontent.com/emily-sakaguchi/ConnectTO_v1/main/data/Suitability.geojson')
     .then(response => response.json())      // Store response as JSON format
     .then(response => {
         console.log(response);      // Check response in console
@@ -155,7 +155,7 @@ map.on('load', () => {
 
     map.addSource('suitability', {
         type:'geojson',
-        data:'https://raw.githubusercontent.com/emily-sakaguchi/ConnectTO_v1/main/data/WifiOverlayVector.geojson'
+        data:'https://raw.githubusercontent.com/emily-sakaguchi/ConnectTO_v1/main/data/Suitability.geojson'
     });
 
     map.addLayer({
@@ -205,25 +205,42 @@ map.on('load', () => {
                 'fill-outline-color': 'white',
                 'fill-opacity': 1
                 },
-                'filter': ['==', ['get', 'fid'], ''] //Initial filter (returns nothing)
+                'filter': ['==', ['get', 'S_Id'], ''] //Initial filter (returns nothing)
             }, 'parks','ttcShelter','wayfinder');
          
     /*--------------------------------------------------------------------
     Turf.js
     - return list of eligible sites
     --------------------------------------------------------------------*/
-    let parkNames;
-    // let selected;
+    // let parkNames;
+    // // let selected;
     
+    // map.on('click', 'suitability', (e) => {
+    //     // selected = e.features[0].properties.S_Id
+    //     var parksWithin = turf.tag(parks, suitability, 'S_Id', 'ASSET_NAME');
+    //     console.log(parksWithin) 
+    //     for (let i = 0; i < parksWithin.length; i++) {
+    //         parkNames += parksWithin.get('ASSET_NAME')[i] + "<br>";
+    //       }
+    //       console.log(parkNames)
+    // });
+
+
+    let filteredParks;
+
     map.on('click', 'suitability', (e) => {
-        // selected = e.features[0].properties.fid
-        var parksWithin = turf.tag(parks, suitability, 'fid', 'ASSET_NAME');
-        console.log(parksWithin) 
-        for (let i = 0; i < parksWithin.length; i++) {
-            parkNames += parksWithin.get('ASSET_NAME')[i] + "<br>";
+        selected = e.features[0].properties.S_ID;
+        for (let i = 0; i < parks.length; i++) {
+            if (parks[i].S_Id === selected) {
+                filteredParks = [...filteredParks, parks[i]];
+            }
+            console.log(filteredParks);
+          
           }
-          console.log(parkNames)
-    });
+        }
+    )
+
+    
 
    
     // document.getElementById('results-btn').addEventListener('click', () => {
@@ -264,12 +281,12 @@ HOVER EVENT
  map.on('mousemove', 'suitability', (e) => {
         
     if (e.features.length > 0) { //determines if there is a feature under the mouse
-        map.setFilter('suitability-hov', ['==', ['get', 'fid'], e.features[0].properties.fid]); //applies the empty filter created
+        map.setFilter('suitability-hov', ['==', ['get', 'S_Id'], e.features[0].properties.S_Id]); //applies the empty filter created
     }    
 });
  
 map.on('mouseleave', 'suitability-hov', () => { //removes the highlight when the mouse moves away
-    map.setFilter("suitability-hov",['==', ['get', 'fid'], '']);   
+    map.setFilter("suitability-hov",['==', ['get', 'S_Id'], '']);   
 });
 
 /*--------------------------------------------------------------------
