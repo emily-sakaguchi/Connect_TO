@@ -46,14 +46,14 @@ fetch('https://raw.githubusercontent.com/emily-sakaguchi/ConnectTO_v1/main/data/
         parks = response;       
     });
 
-fetch('https://raw.githubusercontent.com/emily-sakaguchi/ConnectTO_v1/main/data/Transit_shelter.geojson')
+fetch('https://raw.githubusercontent.com/emily-sakaguchi/ConnectTO_v1/main/data/ttcNeighb.geojson')
     .then(response => response.json())      // Store response as JSON format
     .then(response => {
         console.log(response);      // Check response in console
         ttcShelter = response;       
     });
 
-fetch('https://raw.githubusercontent.com/emily-sakaguchi/ConnectTO_v1/main/data/wayfinder.geojson')
+fetch('https://raw.githubusercontent.com/emily-sakaguchi/ConnectTO_v1/main/data/wayfindNeighb.geojson')
     .then(response => response.json())      // Store response as JSON format
     .then(response => {
         console.log(response);      // Check response in console
@@ -100,15 +100,14 @@ map.on('load', () => {
 
     map.addSource('ttcShelter',{
         type: 'geojson',
-        data: 'https://raw.githubusercontent.com/emily-sakaguchi/ConnectTO_v1/main/data/Transit_shelter.geojson'
+        data: 'https://raw.githubusercontent.com/emily-sakaguchi/ConnectTO_v1/main/data/ttcNeighb.geojson'
     });
 
-// see if need to filter
+// filtered in ArcPro so status is existing for all 
     map.addLayer({
         'id': 'ttcShelter',
         'type': 'circle',
         'source': 'ttcShelter',
-        'filter': ['==',['get',"STATUS"], "Existing"],
         'paint': {
             'circle-radius':['interpolate', ['linear'], ['zoom'], 9, 1, 10.3, 2, 12, 3.5, 15, 4.5],
             'circle-color': '#ed2f2f', //red 
@@ -119,15 +118,14 @@ map.on('load', () => {
 
     map.addSource('wayfinder',{
         type: 'geojson',
-        data: 'https://raw.githubusercontent.com/emily-sakaguchi/ConnectTO_v1/main/data/wayfinder.geojson'
+        data: 'https://raw.githubusercontent.com/emily-sakaguchi/ConnectTO_v1/main/data/wayfindNeighb.geojson'
     });
 
-// see if need to filter
+// filtered in ArcPro so status is existing for all 
     map.addLayer({
         'id': 'wayfinder',
         'type': 'circle',
         'source': 'wayfinder',
-        'filter': ['==',['get',"STATUS"], "Existing"],
         'paint': {
             'circle-radius':['interpolate', ['linear'], ['zoom'], 9, 1, 10.3, 2, 12, 3.5, 15, 4.5],
             'circle-color': '#066ad4', //blue
@@ -225,37 +223,6 @@ map.on('load', () => {
     //       console.log(parkNames)
     // });
 
-
-    
-
-   
-    // document.getElementById('results-btn').addEventListener('click', () => {
-    //     document.getElementById('searchParks').addEventListener('change', (e) => {
-    //         if (e.target.checked) {
-    //             var parksWithin = turf.pointsWithinPolygon(parks, suitability);
-    //             console.log(parksWithin);
-    //             // document.getElementById('siteList').innerHTML = parksWithin
-    //         } else {
-    //             console.log('parks are not selected')
-    //         }
-    //     });
-        // document.getElementById('searchTtc').addEventListener('change', (e) => {
-        //     if (e.target.checked) {
-        //         var ttcWithin = turf.pointsWithinPolygon(ttcShelter, suitability);
-        //         console.log(ttcWithin);
-        //         // document.getElementById('siteList').innerHTML = ttcWithin;
-        //     } else {
-        //         console.log('transit shelters are not selected')
-        //     }});
-        // document.getElementById('searchWayfind').addEventListener('change', (e) => {
-        //     if (e.target.checked) {
-        //     var wayfindWithin = turf.pointsWithinPolygon(wayfinder, suitability);
-        //     console.log(wayfindWithin);
-        //     // document.getElementById('siteList').innerHTML = wayfindWithin;
-        // } else {
-        //     console.log('wayfinders are not selected')
-        // }
-        // })
     })
  //end of map load event
 
@@ -333,11 +300,6 @@ map.on('click', 'suitability', (e) => {
     //         }    
     //         console.log(filteredParks); 
     //     }  
-
-    
-    
-   
-    
 
 
 /*--------------------------------------------------------------------
