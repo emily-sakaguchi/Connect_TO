@@ -276,6 +276,9 @@ map.on('click', 'neighb', (e) => {
         .addTo(map); //Adds the popup to the map
 });
 
+const table = document.getElementById("results-table");
+const tableBody = table.querySelector("tbody");
+
 let selected = 0;
 
 map.on('click', 'suitability', (e) => {   
@@ -285,8 +288,20 @@ map.on('click', 'suitability', (e) => {
         park.properties.S_Id === selected
     ));
 
+    // Clear table rows
+    tableBody.innerHTML = "";
+
+    // Add data rows 
+    filteredParks.forEach(parkFeature => {
+        const park = parkFeature.properties; // Access the properties
+        const row = tableBody.insertRow();
+        row.insertCell().textContent = park.name;
+        row.insertCell().textContent = park.ADDRESS7; // Use 'ADDRESS7'
+    });
+
     console.log(filteredParks)
 });
+
 
 
 /*--------------------------------------------------------------------
