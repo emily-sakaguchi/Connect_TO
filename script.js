@@ -253,7 +253,7 @@ map.on('click', 'neighb', (e) => {
         .setLngLat([-79.020, 43.691]) //Coordinates of the mouse click to determine the coordinates of the pop-up
         //Text for the pop-up:
         .setHTML("<b>Neighbourhood Name:</b> " + e.features[0].properties.AREA_NAME + "<br>" +// shows neighbourhood name
-            "<b>Improvment Status:</b> " + e.features[0].properties.CLASSIFICATION
+            "<b>Improvement Status:</b> " + e.features[0].properties.CLASSIFICATION
             //shows neighbourhood improvement status
             )
         .addTo(map); //Adds the popup to the map
