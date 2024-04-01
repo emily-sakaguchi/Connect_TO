@@ -279,9 +279,10 @@ map.on('click', 'neighb', (e) => {
 let selected = 0;
 
 map.on('click', 'suitability', (e) => {   
-    selected = e.features[0].properties;
+    selected_cell = e.features[0];
+    selected = selected_cell.properties.S_Id;
     filteredParks = (parks.features.filter((park) => 
-        park.properties.S_Id === selected.S_Id
+        park.properties.S_Id === selected
     ));
 
     console.log(filteredParks)
