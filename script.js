@@ -276,30 +276,32 @@ map.on('click', 'neighb', (e) => {
         .addTo(map); //Adds the popup to the map
 });
 
+const table = document.getElementById("results-table");
+const tableBody = table.querySelector("tbody");
+
 let selected = 0;
 
 map.on('click', 'suitability', (e) => {   
-    selected = e.features[0].properties.S_Id;   
-    console.log(selected); 
-    filteredParks = (Object.values(parks).filter(park => {return park.S_Id === selected}));
-    // console.log(filteredParks);  
-  
+    selected_cell = e.features[0];
+    selected = selected_cell.properties.S_Id;
+    filteredParks = (parks.features.filter((park) => 
+        park.properties.S_Id === selected
+    ));
 
-    // const parksFiltered = (Object.values(parks)).filter((el) => {
-    //     return (Object.values(selected)).some((f) => {
-    //       return f.S_Id === el.S_Id;
-    //     });
-    //   });
-    //   console.log(parksFiltered)
+    // Clear table rows
+    tableBody.innerHTML = "";
+
+    // Add data rows 
+    filteredParks.forEach(parkFeature => {
+        const park = parkFeature.properties; // Access the properties
+        const row = tableBody.insertRow();
+        row.insertCell().textContent = park.name;
+        row.insertCell().textContent = park.ADDRESS7; // Use 'ADDRESS7'
     });
 
+    console.log(filteredParks)
+});
 
-    // for (let i = 0; i < parks.length; i++) {
-    //         if (parks.features.properties.S_Id === selected) {    
-    //             filteredParks = [...filteredParks, parks[i]];    
-    //         }    
-    //         console.log(filteredParks); 
-    //     }  
 
 
 /*--------------------------------------------------------------------
