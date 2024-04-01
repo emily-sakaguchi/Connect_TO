@@ -9,8 +9,6 @@
     <link href="https://unpkg.com/maplibre-gl/dist/maplibre-gl.css" rel="stylesheet" />
     <!-- CSS-->
     <link rel="stylesheet" href="style.css">
-    <!-- Turf.js API -->
-    <script src='https://unpkg.com/@turf/turf@6/turf.min.js'></script>
     <!-- Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
      integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
@@ -142,35 +140,33 @@
         </label>
       </div>  
     </div> -->
-
-
-        
-        
-
-      
-
     
     <div class = info>
+      <p>Click on a map area to see potential Wi-Fi locations</p>
       <div id="results-table-root">
        <table id="results-table">
         <thead>
           <tr class = column-header style = "text-align: left">
-            <th>Scenario</th>
-            <th class = "column-header-right">Name or ID</th>
-            <th class = "column-header-right">Location type</th>
-            <th class = "column-header-right">Neighbourhood<br>improvement status</th>
+            <th class = "column-headerLocation type">Location type</th>
+            <th class = "column-header">Name or ID</th>
+            <th class = "column-header">Address</th>
+            <th class = "column-header">Neighbourhood improvement status</th>
+            <th class = "column-header">Suitability score</th>
           </tr> 
         </thead>
-        <tbody></tbody>
+        <tbody class = "tbody"></tbody>
         </table>
       </div>
+    </div>
+
+  <div class = info>
     
     <h3>Methods</h3>
       <p>
         The suitability ratings were determined by overlaying the proportion of immigrants by census dissemination area, the prevalence of poverty by census dissemination area (LICO-AT), walking distance (i.e. network rather than euclidean) to existing public Wi-Fi locations (farther is more suitable), and walking distance to TTC stops (closer is more suitable). All input layers were weighted equally.
 
       </p>
-    </div>
+  </div>
       
     
   

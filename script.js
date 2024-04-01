@@ -206,25 +206,8 @@ map.on('load', () => {
                 'filter': ['==', ['get', 'S_Id'], ''] //Initial filter (returns nothing)
             }, 'parks','ttcShelter','wayfinder');
          
-    /*--------------------------------------------------------------------
-    Turf.js
-    - return list of eligible sites
-    --------------------------------------------------------------------*/
-    // let parkNames;
-    // // let selected;
-    
-    // map.on('click', 'suitability', (e) => {
-    //     // selected = e.features[0].properties.S_Id
-    //     var parksWithin = turf.tag(parks, suitability, 'S_Id', 'ASSET_NAME');
-    //     console.log(parksWithin) 
-    //     for (let i = 0; i < parksWithin.length; i++) {
-    //         parkNames += parksWithin.get('ASSET_NAME')[i] + "<br>";
-    //       }
-    //       console.log(parkNames)
-    // });
-
-    })
- //end of map load event
+    }) 
+    //end of map load event
 
 /*--------------------------------------------------------------------
 HOVER EVENT    
@@ -287,19 +270,67 @@ map.on('click', 'suitability', (e) => {
     filteredParks = (parks.features.filter((park) => 
         park.properties.S_Id === selected
     ));
+    filteredTtc = (ttcShelter.features.filter((ttc) => 
+        ttc.properties.S_Id === selected
+    ));
+    filteredWayfinder = (wayfinder.features.filter((wayfind) => 
+        wayfind.properties.S_Id === selected
+    ));
 
     // Clear table rows
     tableBody.innerHTML = "";
 
-    // Add data rows 
-    filteredParks.forEach(parkFeature => {
-        const park = parkFeature.properties; // Access the properties
+    if (filteredParks == 0 && filteredTtc == 0 && filteredWayfinder == 0) {
         const row = tableBody.insertRow();
-        row.insertCell().textContent = park.name;
-        row.insertCell().textContent = park.ADDRESS7; // Use 'ADDRESS7'
-    });
+        row.insertCell().textContent = "There are no eligible locations in the selected area.";
+        row.insertCell().textContent = " ";
+        row.insertCell().textContent = " ";
+        row.insertCell().textContent = " ";
+        row.insertCell().textContent = " ";
+    }
+
+    // Add data rows 
+
+    if (document.getElementById('parksCheck').checked) {
+        filteredParks.forEach(parkFeature => {
+            const park = parkFeature.properties; // Access the properties
+            const row = tableBody.insertRow();
+            row.insertCell().textContent = "Parks and recreation facility";
+            row.insertCell().textContent = park.name;
+            row.insertCell().textContent = park.ADDRESS7; // Use 'ADDRESS7'
+            row.insertCell().textContent = park.CLASSIF9; // 
+            row.insertCell().textContent = park.V;
+        });
+    }
+
+    if (document.getElementById('ttcShelterCheck').checked) {
+
+        filteredTtc.forEach(ttcFeature => {
+            const ttc = ttcFeature.properties; // Access the properties
+            const row = tableBody.insertRow();
+            row.insertCell().textContent = "Transit shelter";
+            row.insertCell().textContent = ttc.ID3;
+            row.insertCell().textContent = ttc.ADDRESS4 + " " + ttc.ADDRESS5; // Use 'ADDRESS7'
+            row.insertCell().textContent = ttc.CLASSIF9; // 
+            row.insertCell().textContent = ttc.V;
+        });
+    }
+
+    if (document.getElementById('wayfinderCheck').checked) {
+        filteredWayfinder.forEach(wayfindFeature => {
+            const wayfind = wayfindFeature.properties; // Access the properties
+            const row = tableBody.insertRow();
+            row.insertCell().textContent = "Wayfinding structure";
+            row.insertCell().textContent = wayfind.ID3;
+            row.insertCell().textContent = wayfind.ADDRESS4 + " "+ wayfind.ADDRESS5; // Use 'ADDRESS7'
+            row.insertCell().textContent = wayfind.CLASSIF9; // 
+            row.insertCell().textContent = wayfind.V;
+        });
+    }
 
     console.log(filteredParks)
+    console.log(filteredTtc)
+    console.log(filteredWayfinder)
 });
 
 
