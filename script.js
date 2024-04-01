@@ -39,7 +39,7 @@ let wayfinder;
 let neighb;
 
 // Fetch GeoJSON from github URL, convert response to JSON, and store response as variable 
-fetch('https://raw.githubusercontent.com/emily-sakaguchi/ConnectTO_v1/main/data/parks_rec.geojson')
+fetch('https://raw.githubusercontent.com/emily-sakaguchi/ConnectTO_v1/main/data/parksNeighb.geojson')
     .then(response => response.json())      // Store response as JSON format
     .then(response => {
         console.log(response);      // Check response in console
@@ -80,7 +80,7 @@ fetch('https://raw.githubusercontent.com/emily-sakaguchi/ConnectTO_v1/main/data/
 map.on('load', () => {
     map.addSource('parks',{
         type: 'geojson',
-        data: 'https://raw.githubusercontent.com/emily-sakaguchi/ConnectTO_v1/main/data/parks_rec.geojson'
+        data: 'https://raw.githubusercontent.com/emily-sakaguchi/ConnectTO_v1/main/data/parksNeighb.geojson'
     });
 
     // not filtered because data was cleaned manually to remove parks, community centres, and arenas with Wi-Fi
@@ -226,20 +226,6 @@ map.on('load', () => {
     // });
 
 
-    let filteredParks;
-
-    map.on('click', 'suitability', (e) => {
-        selected = e.features[0].properties.S_ID;
-        for (let i = 0; i < parks.length; i++) {
-            if (parks[i].S_Id === selected) {
-                filteredParks = [...filteredParks, parks[i]];
-            }
-            console.log(filteredParks);
-          
-          }
-        }
-    )
-
     
 
    
@@ -323,6 +309,35 @@ map.on('click', 'neighb', (e) => {
         .addTo(map); //Adds the popup to the map
 });
 
+let selected = 0;
+
+map.on('click', 'suitability', (e) => {   
+    selected = e.features[0].properties.S_Id;   
+    console.log(selected); 
+    filteredParks = (Object.values(parks).filter(park => {return park.S_Id === selected}));
+    // console.log(filteredParks);  
+  
+
+    // const parksFiltered = (Object.values(parks)).filter((el) => {
+    //     return (Object.values(selected)).some((f) => {
+    //       return f.S_Id === el.S_Id;
+    //     });
+    //   });
+    //   console.log(parksFiltered)
+    });
+
+
+    // for (let i = 0; i < parks.length; i++) {
+    //         if (parks.features.properties.S_Id === selected) {    
+    //             filteredParks = [...filteredParks, parks[i]];    
+    //         }    
+    //         console.log(filteredParks); 
+    //     }  
+
+    
+    
+   
+    
 
 
 /*--------------------------------------------------------------------
