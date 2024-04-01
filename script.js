@@ -423,10 +423,14 @@ RETURN BUTTON
 document.getElementById('returnbutton').addEventListener('click', () => {
     map.flyTo({
         center: [-79.355, 43.715],
-        zoom: 10.3,
         essential: true,
         bearing: -17, // bearing in degrees
     });
+    if (mq.matches){
+        map.setZoom(10.3); //set map zoom level for desktop size
+    } else {
+        map.setZoom(8.5); //set map zoom level for mobile size
+    };
 });
 
 
