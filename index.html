@@ -37,7 +37,9 @@
 		<p>Emily Sakaguchi</p>
 
 		<p>
-      Access to high-speed, reliable internet is becoming increasingly essential. Toronto’s digital divide disproportionately disadvantages low-income households, recent immigrants, single parents, seniors, people experiencing housing precarity, and many racialized groups. The impacts of barriers to digital connectivity can be profound, including lost job opportunities and income. The City of Toronto acknowledges the urgent need to bridge the digital divide by expanding its city-owned public Wi-Fi program in alignment with its four main pillars—digital equity, universal accessibility, security and transparency, and community safety.
+      Access to high-speed, reliable internet is becoming increasingly essential. Toronto’s digital divide disproportionately disadvantages low-income households, recent immigrants, single parents, seniors, people experiencing housing precarity, and many racialized groups. 
+      <a href = 'https://schoolofcities.github.io/gtha-language-map/' target = 'blank'>Knowledge of languages</a> can also be a significant barrier to access.
+      The impacts of barriers to digital connectivity can be profound, including lost job opportunities and income. The City of Toronto acknowledges the urgent need to bridge the digital divide by expanding its city-owned public Wi-Fi program in alignment with its four main pillars—digital equity, universal accessibility, security and transparency, and community safety.
       <p>
         The City of Toronto has been expanding its public Wi-Fi program in spaces such as community centres and community housing. As the City looks to further implement its free Wi-Fi program, interviews with community stakeholders have emphasized the need for Wi-Fi connectivity in third spaces, such as public parks. Explore potential new sites for public Wi-Fi using the map below. Click on areas to get more information on its suitability rating, neighbourhood improvement status, and third spaces eligible for public Wi-Fi.
       </p>
@@ -76,7 +78,21 @@
         <div class="form-check"> <!-- When checked, it makes the average income legend visible -->
           <input class="form-check-input" type="checkbox" value="" id="neighbCheck" checked> <!-- Checked by default -->
           <label class="form-check-label" for="flexCheckDefault"> 
-            Neighbourhoods
+            All neighbourhoods
+          </label>
+        </div>
+
+        <div class="form-check"> <!-- When checked, it makes the average income legend visible -->
+          <input class="form-check-input" type="checkbox" value="" id="neighbENCheck"> <!-- Checked by default -->
+          <label class="form-check-label" for="flexCheckDefault"> 
+            Emerging neighbourhoods
+          </label>
+        </div>
+
+        <div class="form-check"> <!-- When checked, it makes the average income legend visible -->
+          <input class="form-check-input" type="checkbox" value="" id="neighbNIACheck"> <!-- Checked by default -->
+          <label class="form-check-label" for="flexCheckDefault"> 
+            Neighbourhood improvement areas
           </label>
         </div>
 
@@ -118,31 +134,16 @@
         <div class = col><span style='background-color: #feeea1'></span>5</div>
         <div class = col><span style='background-color: #006837'></span>10</div>
       </div>
+      <div>
+        <div class = offset><span style='background-color: grey'></span>0 (no data)</div>
+      </div>
+     
     </div>
-    <!-- <div class = 'results'>
-      <button type = 'button' class = 'btn-2' id = 'results-btn' >Find Locations for Wi-Fi</button>
-      <div class="form-check"> 
-        <input class="form-check-input" type="checkbox" value="" id="searchParks"> 
-        <label class="form-check-label" for="flexCheckDefault"> 
-          Parks and recreation facilities
-        </label>
-      </div>
-      <div class="form-check"> 
-        <input class="form-check-input" type="checkbox" value="" id="searchTtc"> 
-        <label class="form-check-label" for="flexCheckDefault"> 
-          TTC transit shelters
-        </label>
-      </div>
-      <div class="form-check"> 
-        <input class="form-check-input" type="checkbox" value="" id="searchWayfind"> 
-        <label class="form-check-label" for="flexCheckDefault"> 
-          Wayfinding Structures
-        </label>
-      </div>  
-    </div> -->
-    
+  
+    <!-- Results table -->
+
     <div class = info>
-      <p>Click on a map area to see potential Wi-Fi locations</p>
+      <p>Click on a map area to see potential Wi-Fi locations. Filter results by unselecting layers using the map view filter menu.</p>
       <div id="results-table-root">
        <table id="results-table">
         <thead>
@@ -157,16 +158,45 @@
         <tbody class = "tbody"></tbody>
         </table>
       </div>
+      <br><br><br>
     </div>
 
-  <div class = info>
-    
+    <!-- Detailed info -->
+
+  <div class = end-background>
+    <div class = end>
     <h3>Methods</h3>
       <p>
-        The suitability ratings were determined by overlaying the proportion of immigrants by census dissemination area, the prevalence of poverty by census dissemination area (LICO-AT), walking distance (i.e. network rather than euclidean) to existing public Wi-Fi locations (farther is more suitable), and walking distance to TTC stops (closer is more suitable). All input layers were weighted equally.
-
+        The suitability ratings were determined by overlaying the proportion of immigrants by census dissemination area, the prevalence of poverty by census dissemination area (LICO-AT), walking distance to existing public Wi-Fi locations (farther is more suitable), and walking distance to TTC stops (closer is more suitable). All input layers were weighted equally. Walking distance refers to sidewalk network distance.
       </p>
+      <p>
+        Immigration was measured as the proportion of census dissemination area residents who are not Canadian citizens. Poverty was measured using the prevalence of the low-income cut-off after tax by census dissemination area. Both immigration and poverty data were classified into ten groups using natural breaks (jenks) because there is clustering in the data, rather than a normal distribution. Natural breaks are determined using an algorithm which groups values into classes based on their similarity, making it ideal for classifying clustered data.
+      </p>
+      <p>
+        Walking distance service areas around transit ranged from 100 to 500 metre. All areas beyond one kilometre were classified as the lowest transportation access. 
+        Walking distances service areas around existing public Wi-Fi sites ranged from 400 metres to 2 kilometres in 200-metre increments. Scores were assigned and inverted so that all areas beyond 2 kilometres away from existing public Wi-Fi locations were classified as the most suitable while areas within 400 metres of public existing Wi-Fi locations were classified as least suitable.
+      </p>
+    <h3>Acknowledgements</h3>
+    <p>
+      Thank you to Alexander Olson and Cameron Fairchild for contributing solutions and helping to troubleshoot the code for this website.
+    </p>
+    <p>
+      Data and code for this work are on <a href = 'https://github.com/emily-sakaguchi/Connect_TO.git' target = 'blank'>GitHub</a>.
+    </p>
+    <h3>Data Sources:</h3>
+    <p>
+      Immigration and poverty data are from Statistics Canada, 2021 via
+      <a href = 'https://datacentre.chass.utoronto.ca/' target = 'blank'>CHASS</a>. <br>
+      <a href = 'https://open.toronto.ca/dataset/sidewalk-inventory/' target = 'blank'>Sidewalk data</a> are from Transportation Services, City of Toronto, 2015.<br>
+      Existing <a href = 'https://open.toronto.ca/dataset/city-of-toronto-free-public-wifi/' target = 'blank'>public Wi-Fi locations</a> are from Information & Technology, City of Toronto, 2024.<br>
+      <a href = 'https://open.toronto.ca/dataset/ttc-routes-and-schedules/' target = 'blank'>TTC stop locations </a>are from the Toronto Transit Commission's General Transit Feed Specification, 2024.<br>
+      <a href = 'https://open.toronto.ca/dataset/neighbourhoods/' target = 'blank'>Neighbourhood improvement data</a> are from Social Development, Finance & Administration, City of Toronto, 2022.<br>
+      <a href = 'https://open.toronto.ca/dataset/parks-and-recreation-facilities/' target = 'blank'>Parks and recreation facilities</a> are from Parks, Forestry & Recreation, City of Toronto, 2024.<br>
+      <a href = 'https://open.toronto.ca/dataset/street-furniture-transit-shelter/' target = 'blank'>Tansit shelters</a> are from Transportation Services, City of Toronto, 2024.<br>
+      <a href = 'https://open.toronto.ca/dataset/street-furniture-information-pillar-wayfinding-structure/' target = 'blank'>Wayfinding structures</a> are from Transportation Services, City of Toronto, 2024.
+    </p>
   </div>
+</div>
       
     
   

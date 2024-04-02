@@ -8,8 +8,8 @@ JavaScript
 const map = new maplibregl.Map({
     container: 'map',
     style: 'https://api.maptiler.com/maps/openstreetmap/style.json?key=vYYUHMMF2krizlVhi9JA', // style URL
-    center: [-79.355, 43.715], //these cooraintes load Toronto at the centre of the map
-    zoom: 10.3, //this zooms to show all of Toronto, so users can explore by zooming in to areas of interest
+    center: [-79.355, 43.715], 
+    zoom: 10.3, 
     maxBounds: [
         [-180, 30], // Southwest
         [-25, 84]  // Northeast
@@ -75,7 +75,6 @@ fetch('https://raw.githubusercontent.com/emily-sakaguchi/ConnectTO_v1/main/data/
     });
 
 
-
 // Adding layers to map
 map.on('load', () => {
     map.addSource('parks',{
@@ -96,7 +95,6 @@ map.on('load', () => {
         }
     });
 
-    
 
     map.addSource('ttcShelter',{
         type: 'geojson',
@@ -139,7 +137,6 @@ map.on('load', () => {
         data: 'https://raw.githubusercontent.com/emily-sakaguchi/ConnectTO_v1/main/data/Neighbourhoods.geojson'
     });
 
-// see if need to filter
     map.addLayer({
         'id': 'neighb',
         'type': 'fill',
@@ -150,6 +147,42 @@ map.on('load', () => {
             'fill-outline-color': 'black'
         }
     });
+
+    map.addLayer({
+        'id': 'neighbEN',
+        'type': 'line',
+        'source': 'neighb',
+        'paint': {
+            'line-width': 2,
+            'line-opacity': 1,
+            'line-color': '#05F1FC'
+        },
+        'filter': ['==', ['get', 'CLASSIFICATION'], 'Emerging Neighbourhood']
+    });
+
+    map.setLayoutProperty(
+        'neighbEN',
+        'visibility',
+        'none'
+    );
+
+    map.addLayer({
+        'id': 'neighbNIA',
+        'type': 'line',
+        'source': 'neighb',
+        'paint': {
+            'line-width':2,
+            'line-opacity': 1,
+            'line-color': 'black'
+        },
+        'filter': ['==', ['get', 'CLASSIFICATION'], 'Neighbourhood Improvement Area']
+    });
+
+    map.setLayoutProperty(
+        'neighbNIA',
+        'visibility',
+        'none'
+    );
 
     map.addSource('suitability', {
         type:'geojson',
@@ -211,7 +244,7 @@ map.on('load', () => {
 
 /*--------------------------------------------------------------------
 HOVER EVENT    
-- if a neighbourhood polygon is under the mouse hover, it will turn opaque and white to create a highighting effect
+- if a suitability polygon is under the mouse hover, it will turn opaque and get a white outline to create a highighting effect
  --------------------------------------------------------------------*/
        
  map.on('mousemove', 'suitability', (e) => {
@@ -385,10 +418,28 @@ document.getElementById('wayfinderCheck').addEventListener('change', (e) => {
     );
 });
 
-// Neighbourhood layer
+// Neighbourhood layer (all)
 document.getElementById('neighbCheck').addEventListener('change', (e) => {
     map.setLayoutProperty(
         'neighb',
+        'visibility',
+        e.target.checked ? 'visible' : 'none'
+    );
+});
+
+// Neighbourhood layer (EN)
+document.getElementById('neighbENCheck').addEventListener('change', (e) => {
+    map.setLayoutProperty(
+        'neighbEN',
+        'visibility',
+        e.target.checked ? 'visible' : 'none'
+    );
+});
+
+// Neighbourhood layer (NIA)
+document.getElementById('neighbNIACheck').addEventListener('change', (e) => {
+    map.setLayoutProperty(
+        'neighbNIA',
         'visibility',
         e.target.checked ? 'visible' : 'none'
     );
