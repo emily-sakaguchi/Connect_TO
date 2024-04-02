@@ -281,16 +281,18 @@ map.on('click', 'suitability', (e) => {
         .addTo(map); //Adds the popup to the map
 });
 
-map.on('click', 'neighb', (e) => {
-    new maplibregl.Popup() //Declares a new popup on each click
-        .setLngLat([-79.020, 43.691]) //Coordinates of the mouse click to determine the coordinates of the pop-up
-        //Text for the pop-up:
-        .setHTML("<b>Neighbourhood name:</b> " + e.features[0].properties.AREA_NAME + "<br>" +// shows neighbourhood name
-            "<b>Improvement status:</b> " + e.features[0].properties.CLASSIFICATION
-            //shows neighbourhood improvement status
-            )
-        .addTo(map); //Adds the popup to the map
-});
+if (mq.matches){
+    map.on('click', 'neighb', (e) => {
+        new maplibregl.Popup() //Declares a new popup on each click
+            .setLngLat([-79.020, 43.691]) //Coordinates of the mouse click to determine the coordinates of the pop-up
+            //Text for the pop-up:
+            .setHTML("<b>Neighbourhood name:</b> " + e.features[0].properties.AREA_NAME + "<br>" +// shows neighbourhood name
+                "<b>Improvement status:</b> " + e.features[0].properties.CLASSIFICATION
+                //shows neighbourhood improvement status
+                )
+            .addTo(map); //Adds the popup to the map
+    });
+};
 
 const table = document.getElementById("results-table");
 const tableBody = table.querySelector("tbody");
